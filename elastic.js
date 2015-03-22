@@ -129,9 +129,15 @@ angular.module('monospaced.elastic', [])
 
             // active flag prevents actions in function from calling adjust again
             if (!active) {
+
               active = true;
 
-              mirror.value = ta.value + append; // optional whitespace to improve animation
+              if (ta.hasOwnProperty('placeholder')) {
+                mirror.value = (ta.value.length ? ta.value : ta.placeholder || '') + append; // optional whitespace to improve animation
+              }
+              else {
+                mirror.value = ta.value + append; // optional whitespace to improve animation
+              }
               mirror.style.overflowY = ta.style.overflowY;
 
               taHeight = ta.style.height === '' ? 'auto' : parseInt(ta.style.height, 10);
